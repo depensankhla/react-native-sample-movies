@@ -1,4 +1,6 @@
-export const storeEmailPassword = (payload: any) => ({
+import { EmailPasswordActionPayload } from "../type/Movies.type";
+
+export const storeEmailPassword = (payload: EmailPasswordActionPayload) => ({
     type: 'SET_EMAIL_PASSWORD',
     payload,
 });

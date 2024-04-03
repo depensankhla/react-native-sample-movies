@@ -6,7 +6,7 @@ const initialState = {
     language: 'com'
 };
 
-const reducer = (state = initialState, action: any) => {
+const reducer = (state = initialState, action: { payload: any, type: string }) => {
     switch (action.type) {
         case 'SET_EMAIL_PASSWORD':
             return { ...state, email: action.payload.email, password: action.payload.password };

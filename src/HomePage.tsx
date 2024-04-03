@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react';
 import translate from 'translate-google-api';
 import { useSelector } from 'react-redux';
 import { View, Text, FlatList, Image, StyleSheet, Dimensions } from 'react-native';
-import { extractTitles, updateTitles } from './utils/movieService';
+import { extractTitles, updateTitles } from './utils/MovieService';
+import { MovieDetails, MovieItemDetails, State } from './type/Movies.type';
 
 const { width } = Dimensions.get('window');
 
 const HomePage = () => {
   const [movies, setMovies] = useState([]);
-  const selectedLanguage = useSelector(state => state?.loginDetails?.language);
+  const selectedLanguage = useSelector((state:State) => state?.loginDetails?.language);
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -30,12 +31,10 @@ const HomePage = () => {
         console.error('Error fetching movies:', error);
       }
     };
-
     fetchMovies();
-
   }, []);
 
-  const renderMovieItem = ({ item }: any) => {
+  const renderMovieItem = ({ item }: MovieItemDetails) => {
     return (
       <View style={styles.itemContainer}>
         <Image
@@ -52,7 +51,7 @@ const HomePage = () => {
       <FlatList
         data={movies}
         renderItem={renderMovieItem}
-        keyExtractor={(item: any) => item.id.toString()}
+        keyExtractor={(item: MovieDetails) => item.id.toString()}
         numColumns={2}
       />
     </View>

@@ -6,11 +6,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import HomePage from './HomePage';
 import LoginPage from './LoginPage';
 import { logOut } from './store/Action';
+import { State } from './type/Movies.type';
 
 const Stack = createNativeStackNavigator();
 function Navigation() {
     const dispatch = useDispatch();
-    const isSignedIn = useSelector(state => state?.loginDetails?.email);
+    const isSignedIn = useSelector((state: State) => state?.loginDetails?.email);
     return (
         <NavigationContainer>
             <Stack.Navigator>

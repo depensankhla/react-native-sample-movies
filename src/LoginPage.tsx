@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { View, TextInput, Button, StyleSheet, Pressable, Text } from 'react-native';
-import { changeLanguage, storeEmailPassword } from './store/Action'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import translate from 'translate-google-api';
+import { View, TextInput, Button, StyleSheet } from 'react-native';
+import { changeLanguage, storeEmailPassword } from './store/Action'
+import { State } from './type/Movies.type';
 
 
 export async function translateText(text: string) {
@@ -26,11 +26,13 @@ const labels = {
 }
 
 const LoginPage = () => {
+    const selectedLanguage = useSelector((state: State) => state?.loginDetails?.language);
+
     const [loginLabels, setLoginLabels] = useState(labels);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const selectedLanguage = useSelector(state => state?.loginDetails?.language);
-    
+
+
     useEffect(() => {
         const translateLabels = async () => {
             try {
@@ -54,7 +56,7 @@ const LoginPage = () => {
         }
     }, [selectedLanguage])
 
-   
+
     const dispatch = useDispatch();
 
     const validateEmail = (email: string) => {
@@ -77,7 +79,9 @@ const LoginPage = () => {
     const changeLang = (lang: string) => {
         dispatch(changeLanguage(lang))
     }
+
     const isEnglishSelected = selectedLanguage === 'com';
+
     return (
         <View style={styles.container}>
             <View style={styles.loginContainer}>
@@ -103,7 +107,7 @@ const LoginPage = () => {
                 <Button title="English" color={isEnglishSelected ? '#333' : '#ccc'} onPress={() => {
                     changeLang('com')
                 }} />
-                <View style={{ marginLeft: 10 }}>
+                <View style={styles.languageArabic}>
                     <Button title="Arabic" color={!isEnglishSelected ? '#333' : '#ccc'} onPress={() => {
                         changeLang('ar')
                     }} />
@@ -140,22 +144,9 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         paddingHorizontal: 10,
     },
-    loginButton: {
-        backgroundColor: '#8903',
-        paddingVertical: 10,
-        paddingHorizontal: 20,
-        borderRadius: 5,
-        elevation: 3,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    buttonPressed: {
-        backgroundColor: '#2980b9',
-    },
-    text: {
-        color: 'white',
-        fontSize: 16,
-    },
+    languageArabic: {
+        marginLeft: 10
+    }
 });
 
 export default LoginPage;
