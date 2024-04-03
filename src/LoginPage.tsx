@@ -65,7 +65,7 @@ const LoginPage = () => {
     };
 
     const validatePassword = (password: string) => {
-        const passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*()-_+=])(?=.*[0-9a-zA-Z]).{8,15}$/;
+        const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z\d])(?=.*[@#$%^&+=])[A-Za-z\d@#$%^&+=]{8,15}$/;
         return passwordRegex.test(password);
     };
 
